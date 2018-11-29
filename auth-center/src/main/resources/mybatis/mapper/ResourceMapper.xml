@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iemp.auth.authcenter.dao.ResourceDao">
+
+    <resultMap id="Resource" type="com.iemp.auth.authcenter.domain.Resource" >
+        <result column="id" property="id" />
+        <result column="resource_name" property="resourceName" />
+        <result column="type" property="type" />
+        <result column="code" property="code" />
+        <result column="pid" property="pid" />
+        <result column="des" property="des" />
+        <result column="sort" property="sort" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `resource_name`,
+        `type`,
+        `code`,
+        `pid`,
+        `des`,
+        `sort`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO resource (
+        `id`,
+        `resource_name`,
+        `type`,
+        `code`,
+        `pid`,
+        `des`,
+        `sort`
+        )
+        VALUES(
+        #{resource.id},
+        #{resource.resourceName},
+        #{resource.type},
+        #{resource.code},
+        #{resource.pid},
+        #{resource.des},
+        #{resource.sort}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM resource
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE resource
+        <set>
+            <if test="resource.resourceName != null and resource.resourceName != '' " >
+                resource_name = #{resource.resourceName},
+            </if>
+        </set>
+        <set>
+            <if test="resource.type != null and resource.type != '' " >
+                type = #{resource.type},
+            </if>
+        </set>
+        <set>
+            <if test="resource.code != null and resource.code != '' " >
+                code = #{resource.code},
+            </if>
+        </set>
+        <set>
+            <if test="resource.pid != null and resource.pid != '' " >
+                pid = #{resource.pid},
+            </if>
+        </set>
+        <set>
+            <if test="resource.des != null and resource.des != '' " >
+                des = #{resource.des},
+            </if>
+        </set>
+        <set>
+            <if test="resource.sort != null and resource.sort != '' " >
+                sort = #{resource.sort},
+            </if>
+        </set>
+        WHERE `id` = #{resource.id}
+    </update>
+
+
+    <select id="getAll" resultMap="Resource">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM resource
+    </select>
+
+    <select id="load" parameterType="java.util.Map" resultMap="Resource">
+        SELECT <include refid="Base_Column_List" />
+        FROM resource
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="Resource">
+        SELECT <include refid="Base_Column_List" />
+        FROM resource
+        LIMIT #{offset}, #{pagesize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM resource
+    </select>
+
+</mapper>

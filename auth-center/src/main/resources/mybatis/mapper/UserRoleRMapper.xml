@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iemp.auth.authcenter.dao.UserRoleRDao">
+
+    <resultMap id="UserRoleR" type="com.iemp.auth.authcenter.domain.UserRoleR" >
+        <result column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="role_id" property="roleId" />
+        <result column="yw_id" property="ywId" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `user_id`,
+        `role_id`,
+        `yw_id`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO user_role_r (
+        `id`,
+        `user_id`,
+        `role_id`,
+        `yw_id`
+        )
+        VALUES(
+        #{userRoleR.id},
+        #{userRoleR.userId},
+        #{userRoleR.roleId},
+        #{userRoleR.ywId}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM user_role_r
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE user_role_r
+        <set>
+            <if test="userRoleR.userId != null and userRoleR.userId != '' " >
+                user_id = #{userRoleR.userId},
+            </if>
+        </set>
+        <set>
+            <if test="userRoleR.roleId != null and userRoleR.roleId != '' " >
+                role_id = #{userRoleR.roleId},
+            </if>
+        </set>
+        <set>
+            <if test="userRoleR.ywId != null and userRoleR.ywId != '' " >
+                yw_id = #{userRoleR.ywId},
+            </if>
+        </set>
+        WHERE `id` = #{userRoleR.id}
+    </update>
+
+
+    <select id="getAll" resultMap="UserRoleR">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user_role_r
+    </select>
+
+    <select id="load" parameterType="java.util.Map" resultMap="UserRoleR">
+        SELECT <include refid="Base_Column_List" />
+        FROM user_role_r
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="UserRoleR">
+        SELECT <include refid="Base_Column_List" />
+        FROM user_role_r
+        LIMIT #{offset}, #{pagesize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM user_role_r
+    </select>
+
+</mapper>
