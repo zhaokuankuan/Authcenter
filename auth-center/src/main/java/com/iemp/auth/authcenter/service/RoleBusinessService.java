@@ -1,25 +1,27 @@
 package com.iemp.auth.authcenter.service;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
-import com.iemp.auth.authcenter.domain.User;
+import com.iemp.auth.authcenter.domain.RoleBusiness;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author :Mr.kk
- * @date: 2018/11/29 18:58
+ * 角色业务表
+ * Created  by Mr.kk
+ * DateTime on 2018-11-29 23:11:56
  */
-public interface UserService {
+public interface RoleBusinessService {
+
     /**
      * 新增或修改
      */
-    public ReturnModel insertOrUpdate(User user);
+    public ReturnModel insertOrUpdate(RoleBusiness roleBusiness);
 
     /**
      * 新增
      */
-    public ReturnModel insert(User user);
+    public ReturnModel insert(RoleBusiness roleBusiness);
 
     /**
      * 删除
@@ -29,7 +31,7 @@ public interface UserService {
     /**
      * 更新
      */
-    public ReturnModel update(User user);
+    public ReturnModel update(RoleBusiness roleBusiness);
 
     /**
      * 根据Id查询
@@ -37,14 +39,9 @@ public interface UserService {
     public ReturnModel load(String id);
 
     /**
-     * 根据loginName查询
-     */
-    public User loadByLoginName(String name);
-
-    /**
      * 全部查询
      */
-    public List<User> getAll();
+    public List<RoleBusiness> getAll();
 
     /**
      * 分页查询

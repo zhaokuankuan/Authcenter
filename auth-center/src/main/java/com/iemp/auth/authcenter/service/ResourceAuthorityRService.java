@@ -1,25 +1,27 @@
 package com.iemp.auth.authcenter.service;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
-import com.iemp.auth.authcenter.domain.User;
+import com.iemp.auth.authcenter.domain.ResourceAuthorityR;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * @author :Mr.kk
- * @date: 2018/11/29 18:58
+ * 资源操作码关系表
+ * Created  by Mr.kk
+ * DateTime on 2018-11-29 23:06:53
  */
-public interface UserService {
+public interface ResourceAuthorityRService {
+
     /**
      * 新增或修改
      */
-    public ReturnModel insertOrUpdate(User user);
+    public ReturnModel insertOrUpdate(ResourceAuthorityR resourceAuthorityR);
 
     /**
      * 新增
      */
-    public ReturnModel insert(User user);
+    public ReturnModel insert(ResourceAuthorityR resourceAuthorityR);
 
     /**
      * 删除
@@ -29,7 +31,7 @@ public interface UserService {
     /**
      * 更新
      */
-    public ReturnModel update(User user);
+    public ReturnModel update(ResourceAuthorityR resourceAuthorityR);
 
     /**
      * 根据Id查询
@@ -37,14 +39,9 @@ public interface UserService {
     public ReturnModel load(String id);
 
     /**
-     * 根据loginName查询
-     */
-    public User loadByLoginName(String name);
-
-    /**
      * 全部查询
      */
-    public List<User> getAll();
+    public List<ResourceAuthorityR> getAll();
 
     /**
      * 分页查询

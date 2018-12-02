@@ -70,6 +70,12 @@
         WHERE `id` = #{id}
     </select>
 
+    <select id="loadByLoginName" parameterType="java.util.Map" resultMap="User">
+        SELECT <include refid="Base_Column_List" />
+        FROM user
+        WHERE `login_name` = #{name}
+    </select>
+
     <select id="pageList" parameterType="java.util.Map" resultMap="User">
         SELECT <include refid="Base_Column_List" />
         FROM user

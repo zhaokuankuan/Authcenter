@@ -34,6 +34,11 @@ public interface UserDao {
     /**
      * Load查询
      */
+    public User loadByLoginName(@Param("name") String name);
+
+    /**
+     * Load查询
+     */
     public List<User> getAll();
 
 
