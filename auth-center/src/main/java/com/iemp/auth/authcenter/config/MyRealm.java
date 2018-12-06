@@ -40,6 +40,9 @@ public class MyRealm extends AuthorizingRealm {
         String username = JwtUtil.getUsername(principals.toString());
         User user = sysUserService.loadByLoginName(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+        //simpleAuthorizationInfo.addRole(user.getRole());
+        //Set<String> permission = new HashSet<>(Arrays.asList(user.getPermission().split(",")));
+        //simpleAuthorizationInfo.addStringPermissions(permission);
         return simpleAuthorizationInfo;
     }
 
@@ -49,24 +52,23 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String token = (String) auth.getCredentials();
-        //if(null == token || "".equals(token)){
-        //    throw new AuthenticationException("token无效");
-        //}
+        if (token == null || "".equals(token)) {
+            throw new AuthenticationException("token is null!");
+        }
         // 解密获得username，用于和数据库进行对比
         String username = JwtUtil.getUsername(token);
         if (username == null) {
-            throw new AuthenticationException("token无效");
+            throw new AuthenticationException("token is unAuthentication!");
         }
 
-        User userBean = sysUserService.loadByLoginName(username);
-        if (userBean == null) {
-            throw new AuthenticationException("用户不存在!");
+        User User = sysUserService.loadByLoginName(username);
+        if (User == null) {
+            throw new AuthenticationException("user is not exist!");
         }
 
-        if (!JwtUtil.verify(token, username, userBean.getPassword())) {
-            throw new AuthenticationException("用户名或密码错误");
+        if (!JwtUtil.verify(token, username, User.getPassword())) {
+            throw new AuthenticationException("token is error!");
         }
-
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 }
