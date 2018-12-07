@@ -15,6 +15,8 @@ import java.util.Date;
 public class JwtUtil {
 
 
+    private static final String KEY = "123456";
+
     private static final long EXPIRE_TIME = 5 * 60 * 1000;
 
     /**
@@ -64,6 +66,7 @@ public class JwtUtil {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(secret);
         // 附带username信息
+
         return JWT.create()
                 .withClaim("username", username)
                 .withExpiresAt(date)
