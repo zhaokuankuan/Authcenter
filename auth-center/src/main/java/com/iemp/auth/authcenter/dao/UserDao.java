@@ -6,8 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * @author :Mr.kk
- * @date: 2018/11/29 18:57
+ * 用户表
+ * Created  by Mr.kk
+ * DateTime on 2018-12-07 11:31:16
  */
 public interface UserDao {
 
@@ -34,11 +35,6 @@ public interface UserDao {
     /**
      * Load查询
      */
-    public User loadByLoginName(@Param("name") String name);
-
-    /**
-     * Load查询
-     */
     public List<User> getAll();
 
 
@@ -53,4 +49,9 @@ public interface UserDao {
      */
     public int pageListCount(@Param("offset") int offset,
                              @Param("pagesize") int pagesize);
+
+    /**
+     * 根据账号查询用户信息
+     */
+    public User getUserByAccount(@Param("account") String account);
 }

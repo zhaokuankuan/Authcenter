@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iemp.auth.authcenter.dao.RoleMenuRDao">
+
+    <resultMap id="RoleMenuR" type="com.iemp.auth.authcenter.domain.RoleMenuR" >
+        <result column="id" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="menu_id" property="menuId" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        `id`,
+        `role_id`,
+        `menu_id`
+    </sql>
+
+    <insert id="insert" parameterType="java.util.Map" >
+        INSERT INTO role_menu_r (
+        `id`,
+        `role_id`,
+        `menu_id`
+        )
+        VALUES(
+        #{roleMenuR.id},
+        #{roleMenuR.roleId},
+        #{roleMenuR.menuId}
+        )
+    </insert>
+
+    <delete id="delete" parameterType="java.util.Map" >
+        DELETE FROM role_menu_r
+        WHERE `id` = #{id}
+    </delete>
+
+    <update id="update" parameterType="java.util.Map" >
+        UPDATE role_menu_r
+        <set>
+            <if test="roleMenuR.roleId != null and roleMenuR.roleId != '' " >
+                role_id = #{roleMenuR.roleId},
+            </if>
+        </set>
+        <set>
+            <if test="roleMenuR.menuId != null and roleMenuR.menuId != '' " >
+                menu_id = #{roleMenuR.menuId},
+            </if>
+        </set>
+        WHERE `id` = #{roleMenuR.id}
+    </update>
+
+
+    <select id="getAll" resultMap="RoleMenuR">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM role_menu_r
+    </select>
+
+    <select id="load" parameterType="java.util.Map" resultMap="RoleMenuR">
+        SELECT <include refid="Base_Column_List" />
+        FROM role_menu_r
+        WHERE `id` = #{id}
+    </select>
+
+    <select id="pageList" parameterType="java.util.Map" resultMap="RoleMenuR">
+        SELECT <include refid="Base_Column_List" />
+        FROM role_menu_r
+        LIMIT #{offset}, #{pagesize}
+    </select>
+
+    <select id="pageListCount" parameterType="java.util.Map" resultType="int">
+        SELECT count(1)
+        FROM role_menu_r
+    </select>
+
+    <select id="getMenuIdsByRoleIds" resultType="string">
+        SELECT menu_id
+        FROM role_menu_r
+        where role_id in 
+        <foreach collection="roleIds" item="roleId" open="(" close=")" separator=",">
+            #{roleId}
+        </foreach>
+    </select>
+</mapper>

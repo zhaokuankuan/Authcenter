@@ -5,30 +5,46 @@
 
     <resultMap id="User" type="com.iemp.auth.authcenter.domain.User" >
         <result column="id" property="id" />
+        <result column="phone" property="phone" />
         <result column="login_name" property="loginName" />
-        <result column="real_name" property="realName" />
         <result column="password" property="password" />
+        <result column="create_time" property="createTime" />
+        <result column="last_logint_ime" property="lastLogintIme" />
+        <result column="status" property="status" />
+        <result column="extend1" property="extend1" />
     </resultMap>
 
     <sql id="Base_Column_List">
         `id`,
+        `phone`,
         `login_name`,
-        `real_name`,
-        `password`
+        `password`,
+        `create_time`,
+        `last_logint_ime`,
+        `status`,
+        `extend1`
     </sql>
 
     <insert id="insert" parameterType="java.util.Map" >
         INSERT INTO user (
         `id`,
+        `phone`,
         `login_name`,
-        `real_name`,
-        `password`
+        `password`,
+        `create_time`,
+        `last_logint_ime`,
+        `status`,
+        `extend1`
         )
         VALUES(
         #{user.id},
+        #{user.phone},
         #{user.loginName},
-        #{user.realName},
-        #{user.password}
+        #{user.password},
+        #{user.createTime},
+        #{user.lastLogintIme},
+        #{user.status},
+        #{user.extend1}
         )
     </insert>
 
@@ -40,18 +56,38 @@
     <update id="update" parameterType="java.util.Map" >
         UPDATE user
         <set>
+            <if test="user.phone != null and user.phone != '' " >
+                phone = #{user.phone},
+            </if>
+        </set>
+        <set>
             <if test="user.loginName != null and user.loginName != '' " >
                 login_name = #{user.loginName},
             </if>
         </set>
         <set>
-            <if test="user.realName != null and user.realName != '' " >
-                real_name = #{user.realName},
+            <if test="user.password != null and user.password != '' " >
+                password = #{user.password},
             </if>
         </set>
         <set>
-            <if test="user.password != null and user.password != '' " >
-                password = #{user.password},
+            <if test="user.createTime != null and user.createTime != '' " >
+                create_time = #{user.createTime},
+            </if>
+        </set>
+        <set>
+            <if test="user.lastLogintIme != null and user.lastLogintIme != '' " >
+                last_logint_ime = #{user.lastLogintIme},
+            </if>
+        </set>
+        <set>
+            <if test="user.status != null and user.status != '' " >
+                status = #{user.status},
+            </if>
+        </set>
+        <set>
+            <if test="user.extend1 != null and user.extend1 != '' " >
+                extend1 = #{user.extend1},
             </if>
         </set>
         WHERE `id` = #{user.id}
@@ -70,12 +106,6 @@
         WHERE `id` = #{id}
     </select>
 
-    <select id="loadByLoginName" parameterType="java.util.Map" resultMap="User">
-        SELECT <include refid="Base_Column_List" />
-        FROM user
-        WHERE `login_name` = #{name}
-    </select>
-
     <select id="pageList" parameterType="java.util.Map" resultMap="User">
         SELECT <include refid="Base_Column_List" />
         FROM user
@@ -85,6 +115,12 @@
     <select id="pageListCount" parameterType="java.util.Map" resultType="int">
         SELECT count(1)
         FROM user
+    </select>
+    
+    <select id="getUserByAccount" resultMap="User">
+        SELECT <include refid="Base_Column_List" />
+        FROM user
+        WHERE `login_name` = #{account} or `phone` = #{account}
     </select>
 
 </mapper>

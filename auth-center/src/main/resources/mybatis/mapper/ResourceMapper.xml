@@ -5,42 +5,54 @@
 
     <resultMap id="Resource" type="com.iemp.auth.authcenter.domain.Resource" >
         <result column="id" property="id" />
-        <result column="resource_name" property="resourceName" />
-        <result column="type" property="type" />
+        <result column="name" property="name" />
         <result column="code" property="code" />
-        <result column="pid" property="pid" />
-        <result column="des" property="des" />
+        <result column="url" property="url" />
+        <result column="add" property="add" />
+        <result column="delete" property="delete" />
+        <result column="edit" property="edit" />
+        <result column="find" property="find" />
         <result column="sort" property="sort" />
+        <result column="des" property="des" />
     </resultMap>
 
     <sql id="Base_Column_List">
         `id`,
-        `resource_name`,
-        `type`,
+        `name`,
         `code`,
-        `pid`,
-        `des`,
-        `sort`
+        `url`,
+        `add`,
+        `delete`,
+        `edit`,
+        `find`,
+        `sort`,
+        `des`
     </sql>
 
     <insert id="insert" parameterType="java.util.Map" >
         INSERT INTO resource (
         `id`,
-        `resource_name`,
-        `type`,
+        `name`,
         `code`,
-        `pid`,
-        `des`,
-        `sort`
+        `url`,
+        `add`,
+        `delete`,
+        `edit`,
+        `find`,
+        `sort`,
+        `des`
         )
         VALUES(
         #{resource.id},
-        #{resource.resourceName},
-        #{resource.type},
+        #{resource.name},
         #{resource.code},
-        #{resource.pid},
-        #{resource.des},
-        #{resource.sort}
+        #{resource.url},
+        #{resource.add},
+        #{resource.delete},
+        #{resource.edit},
+        #{resource.find},
+        #{resource.sort},
+        #{resource.des}
         )
     </insert>
 
@@ -52,13 +64,8 @@
     <update id="update" parameterType="java.util.Map" >
         UPDATE resource
         <set>
-            <if test="resource.resourceName != null and resource.resourceName != '' " >
-                resource_name = #{resource.resourceName},
-            </if>
-        </set>
-        <set>
-            <if test="resource.type != null and resource.type != '' " >
-                type = #{resource.type},
+            <if test="resource.name != null and resource.name != '' " >
+                name = #{resource.name},
             </if>
         </set>
         <set>
@@ -67,18 +74,38 @@
             </if>
         </set>
         <set>
-            <if test="resource.pid != null and resource.pid != '' " >
-                pid = #{resource.pid},
+            <if test="resource.url != null and resource.url != '' " >
+                url = #{resource.url},
             </if>
         </set>
         <set>
-            <if test="resource.des != null and resource.des != '' " >
-                des = #{resource.des},
+            <if test="resource.add != null and resource.add != '' " >
+                add = #{resource.add},
+            </if>
+        </set>
+        <set>
+            <if test="resource.delete != null and resource.delete != '' " >
+                delete = #{resource.delete},
+            </if>
+        </set>
+        <set>
+            <if test="resource.edit != null and resource.edit != '' " >
+                edit = #{resource.edit},
+            </if>
+        </set>
+        <set>
+            <if test="resource.find != null and resource.find != '' " >
+                find = #{resource.find},
             </if>
         </set>
         <set>
             <if test="resource.sort != null and resource.sort != '' " >
                 sort = #{resource.sort},
+            </if>
+        </set>
+        <set>
+            <if test="resource.des != null and resource.des != '' " >
+                des = #{resource.des},
             </if>
         </set>
         WHERE `id` = #{resource.id}
@@ -106,6 +133,15 @@
     <select id="pageListCount" parameterType="java.util.Map" resultType="int">
         SELECT count(1)
         FROM resource
+    </select>
+
+    <select id="getResourceByIds" resultMap="Resource">
+        SELECT <include refid="Base_Column_List" />
+        FROM resource
+        WHERE id in 
+        <foreach collection="resoureceIds" open="(" close=")" item="resoureceId" separator=",">
+            #{resoureceId}
+        </foreach>
     </select>
 
 </mapper>

@@ -7,9 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 资源表
+ * 资源
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:22:33
+ * DateTime on 2018-12-07 13:31:15
  */
 public interface ResourceService {
 
@@ -47,5 +47,10 @@ public interface ResourceService {
      * 分页查询
      */
     public Map<String,Object> pageList(int offset, int pagesize);
+
+    /**
+     * 根据资源Id列表查询资源
+     */
+    public List<Resource> getResourceByIds(List<String> resoureceIds);
 
 }

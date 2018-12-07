@@ -1,6 +1,7 @@
 package com.iemp.auth.authcenter.service.impl;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
+import com.iemp.auth.authcenter.common.StringUtil;
 import com.iemp.auth.authcenter.dao.RoleResourceRDao;
 import com.iemp.auth.authcenter.domain.RoleResourceR;
 import com.iemp.auth.authcenter.service.RoleResourceRService;
@@ -10,6 +11,7 @@ import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * "角色资源关系表"
@@ -50,6 +52,7 @@ public class RoleResourceRServiceImpl implements RoleResourceRService {
             result.addDefaultModel("404","必要参数缺失");
             return result;
         }
+        roleResourceR.setId(StringUtil.createUUID());
         roleResourceRDao.insert(roleResourceR);
         result.setSuccess(true);
         return result;
@@ -125,6 +128,14 @@ public class RoleResourceRServiceImpl implements RoleResourceRService {
         result.put("pageList", pageList);
         result.put("totalCount", totalCount);
         return result;
+    }
+
+    /**
+     * 根据roleIds查询资源
+     */
+    @Override
+    public Set<String> getResourceByRoleIds(List<String> roleIds) {
+        return roleResourceRDao.getResourceByRoleIds(roleIds);
     }
 
 }

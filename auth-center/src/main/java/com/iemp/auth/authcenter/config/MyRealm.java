@@ -38,7 +38,7 @@ public class MyRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         String username = JwtUtil.getUsername(principals.toString());
-        User user = sysUserService.loadByLoginName(username);
+        User user = sysUserService.getUserByAccount(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         //simpleAuthorizationInfo.addRole(user.getRole());
         //Set<String> permission = new HashSet<>(Arrays.asList(user.getPermission().split(",")));
@@ -61,12 +61,12 @@ public class MyRealm extends AuthorizingRealm {
             throw new AuthenticationException("token is unAuthentication!");
         }
 
-        User User = sysUserService.loadByLoginName(username);
-        if (User == null) {
+        User user = sysUserService.getUserByAccount(username);
+        if (user == null) {
             throw new AuthenticationException("user is not exist!");
         }
 
-        if (!JwtUtil.verify(token, username, User.getPassword())) {
+        if (!JwtUtil.verify(token, username, user.getPassword())) {
             throw new AuthenticationException("token is error!");
         }
         return new SimpleAuthenticationInfo(token, token, "my_realm");

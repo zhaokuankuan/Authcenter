@@ -1,28 +1,26 @@
 package com.iemp.auth.authcenter.service.impl;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
+import com.iemp.auth.authcenter.common.StringUtil;
 import com.iemp.auth.authcenter.dao.ResourceDao;
 import com.iemp.auth.authcenter.domain.Resource;
 import com.iemp.auth.authcenter.service.ResourceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import javax.annotation.Resource;
-
 /**
- * 资源表
+ * 资源
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:22:33
+ * DateTime on 2018-12-07 13:31:15
  */
 @Service
 public class ResourceServiceImpl implements ResourceService {
 
-    @Autowired
-    private ResourceDao resourceDao;
+    @javax.annotation.Resource
+    private ResourceDao ResourceDao;
 
     /**
      * 新增或修改
@@ -52,7 +50,8 @@ public class ResourceServiceImpl implements ResourceService {
             result.addDefaultModel("404","必要参数缺失");
             return result;
         }
-        resourceDao.insert(resource);
+        resource.setId(StringUtil.createUUID());
+        ResourceDao.insert(resource);
         result.setSuccess(true);
         return result;
     }
@@ -67,7 +66,7 @@ public class ResourceServiceImpl implements ResourceService {
             result.setMsg("id不能为空！");
             return result;
         }
-        int ret = resourceDao.delete(id);
+        int ret = ResourceDao.delete(id);
         if(ret > 0){
             result.setSuccess(true);
             return  result;
@@ -82,7 +81,7 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     public ReturnModel update(Resource resource) {
         ReturnModel result = new ReturnModel();
-        int ret = resourceDao.update(resource);
+        int ret = ResourceDao.update(resource);
         if(ret > 0){
             result.setSuccess(true);
             return  result;
@@ -101,8 +100,8 @@ public class ResourceServiceImpl implements ResourceService {
             result.setMsg("id不能为空！");
             return result;
         }
-        Resource resource = resourceDao.load(id);
-        result.addDefaultModel("value",resource);
+        Resource Resource = ResourceDao.load(id);
+        result.addDefaultModel("value",Resource);
         result.setSuccess(true);
         return result;
     }
@@ -111,7 +110,7 @@ public class ResourceServiceImpl implements ResourceService {
      * 全部查询
      */
     public List<Resource> getAll(){
-        List<Resource> list = resourceDao.getAll();
+        List<Resource> list = ResourceDao.getAll();
         return list;
     };
 
@@ -120,13 +119,21 @@ public class ResourceServiceImpl implements ResourceService {
      */
     @Override
     public Map<String,Object> pageList(int offset, int pagesize) {
-        List<Resource> pageList = resourceDao.pageList(offset, pagesize);
-        int totalCount = resourceDao.pageListCount(offset, pagesize);
+        List<Resource> pageList = ResourceDao.pageList(offset, pagesize);
+        int totalCount = ResourceDao.pageListCount(offset, pagesize);
         // 分页查询的数据的返回
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("pageList", pageList);
         result.put("totalCount", totalCount);
         return result;
+    }
+
+    /**
+     * 根据资源Id列表查询资源
+     */
+    @Override
+    public List<Resource> getResourceByIds(List<String> resoureceIds) {
+        return ResourceDao.getResourceByIds(resoureceIds);
     }
 
 }

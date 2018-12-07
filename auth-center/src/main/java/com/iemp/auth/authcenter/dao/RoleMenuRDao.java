@@ -1,22 +1,22 @@
 package com.iemp.auth.authcenter.dao;
 
-import com.iemp.auth.authcenter.domain.UserRoleR;
+import com.iemp.auth.authcenter.domain.RoleMenuR;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Set;
 
 /**
- * 用户角色关系表
+ * 角色菜单关系表
  * Created  by Mr.kk
- * DateTime on 2018-12-07 13:36:53
+ * DateTime on 2018-12-07 13:39:07
  */
-public interface UserRoleRDao {
+public interface RoleMenuRDao {
 
     /**
      * 新增
      */
-    public int insert(@Param("userRoleR") UserRoleR userRoleR);
+    public int insert(@Param("roleMenuR") RoleMenuR roleMenuR);
 
     /**
      * 删除
@@ -26,23 +26,23 @@ public interface UserRoleRDao {
     /**
      * 更新
      */
-    public int update(@Param("userRoleR") UserRoleR userRoleR);
+    public int update(@Param("roleMenuR") RoleMenuR roleMenuR);
 
     /**
      * Load查询
      */
-    public UserRoleR load(@Param("id") String id);
+    public RoleMenuR load(@Param("id") String id);
 
     /**
      * Load查询
      */
-    public List<UserRoleR> getAll();
+    public List<RoleMenuR> getAll();
 
 
     /**
      * 分页查询Data
      */
-    public List<UserRoleR> pageList(@Param("offset") int offset,
+    public List<RoleMenuR> pageList(@Param("offset") int offset,
                                     @Param("pagesize") int pagesize);
 
     /**
@@ -52,8 +52,8 @@ public interface UserRoleRDao {
                              @Param("pagesize") int pagesize);
 
     /**
-     * 根据userId查询该用户拥有的角色
+     * 根据roles查询菜单
      */
-    public Set<String> getRoleIdsByUserId(@Param("userId") String userId);
+    public Set<String> getMenuIdsByRoleIds(@Param("roleIds") List<String> roleIds);
 
 }

@@ -1,9 +1,10 @@
 package com.iemp.auth.authcenter.service.impl;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
-import com.iemp.auth.authcenter.dao.RoleBusinessDao;
-import com.iemp.auth.authcenter.domain.RoleBusiness;
-import com.iemp.auth.authcenter.service.RoleBusinessService;
+import com.iemp.auth.authcenter.common.StringUtil;
+import com.iemp.auth.authcenter.dao.MenuDao;
+import com.iemp.auth.authcenter.domain.Menu;
+import com.iemp.auth.authcenter.service.MenuService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -12,30 +13,30 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 角色业务表
+ * 菜单
  * Created  by Mr.kk
- * DateTime on 2018-11-29 23:11:56
+ * DateTime on 2018-12-07 13:34:15
  */
 @Service
-public class RoleBusinessServiceImpl implements RoleBusinessService {
+public class MenuServiceImpl implements MenuService {
 
     @Resource
-    private RoleBusinessDao roleBusinessDao;
+    private MenuDao menuDao;
 
     /**
      * 新增或修改
      */
     @Override
-    public ReturnModel insertOrUpdate(RoleBusiness roleBusiness) {
+    public ReturnModel insertOrUpdate(Menu menu) {
         ReturnModel result = new ReturnModel();
-        if (roleBusiness == null) {
+        if (menu == null) {
             return result;
         }
-        if(null != roleBusiness.getId() && !"".equals(roleBusiness.getId())){
+        if(null != menu.getId() && !"".equals(menu.getId())){
             //修改
-            result =  update(roleBusiness);
+            result =  update(menu);
         }else{ //新增
-            result = insert(roleBusiness);
+            result = insert(menu);
         }
         return result;
     }
@@ -44,13 +45,14 @@ public class RoleBusinessServiceImpl implements RoleBusinessService {
      * 新增
      */
     @Override
-    public ReturnModel insert(RoleBusiness roleBusiness) {
+    public ReturnModel insert(Menu menu) {
         ReturnModel result = new ReturnModel();
-        if (roleBusiness == null) {
+        if (menu == null) {
             result.addDefaultModel("404","必要参数缺失");
             return result;
         }
-        roleBusinessDao.insert(roleBusiness);
+        menu.setId(StringUtil.createUUID());
+        menuDao.insert(menu);
         result.setSuccess(true);
         return result;
     }
@@ -65,7 +67,7 @@ public class RoleBusinessServiceImpl implements RoleBusinessService {
             result.setMsg("id不能为空！");
             return result;
         }
-        int ret = roleBusinessDao.delete(id);
+        int ret = menuDao.delete(id);
         if(ret > 0){
             result.setSuccess(true);
             return  result;
@@ -78,9 +80,9 @@ public class RoleBusinessServiceImpl implements RoleBusinessService {
      * 修改
      */
     @Override
-    public ReturnModel update(RoleBusiness roleBusiness) {
+    public ReturnModel update(Menu menu) {
         ReturnModel result = new ReturnModel();
-        int ret = roleBusinessDao.update(roleBusiness);
+        int ret = menuDao.update(menu);
         if(ret > 0){
             result.setSuccess(true);
             return  result;
@@ -99,8 +101,8 @@ public class RoleBusinessServiceImpl implements RoleBusinessService {
             result.setMsg("id不能为空！");
             return result;
         }
-        RoleBusiness roleBusiness = roleBusinessDao.load(id);
-        result.addDefaultModel("value",roleBusiness);
+        Menu menu = menuDao.load(id);
+        result.addDefaultModel("value",menu);
         result.setSuccess(true);
         return result;
     }
@@ -108,8 +110,8 @@ public class RoleBusinessServiceImpl implements RoleBusinessService {
     /**
      * 全部查询
      */
-    public List<RoleBusiness> getAll(){
-        List<RoleBusiness> list = roleBusinessDao.getAll();
+    public List<Menu> getAll(){
+        List<Menu> list = menuDao.getAll();
         return list;
     };
 
@@ -118,13 +120,21 @@ public class RoleBusinessServiceImpl implements RoleBusinessService {
      */
     @Override
     public Map<String,Object> pageList(int offset, int pagesize) {
-        List<RoleBusiness> pageList = roleBusinessDao.pageList(offset, pagesize);
-        int totalCount = roleBusinessDao.pageListCount(offset, pagesize);
+        List<Menu> pageList = menuDao.pageList(offset, pagesize);
+        int totalCount = menuDao.pageListCount(offset, pagesize);
         // 分页查询的数据的返回
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("pageList", pageList);
         result.put("totalCount", totalCount);
         return result;
+    }
+
+    /**
+     * 根据menIdS查询所有的menu
+     */
+    @Override
+    public List<Menu> getMenusByMenuIds(List<String> menuIds) {
+        return menuDao.getMenusByMenuIds(menuIds);
     }
 
 }

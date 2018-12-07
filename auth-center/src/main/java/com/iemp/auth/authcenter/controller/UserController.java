@@ -1,12 +1,13 @@
 package com.iemp.auth.authcenter.controller;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
+import com.iemp.auth.authcenter.common.StringUtil;
 import com.iemp.auth.authcenter.domain.User;
 import com.iemp.auth.authcenter.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,11 +16,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 用户
+ * 用户表
  * Created  by Mr.kk
- * DateTime on 2018-11-29 18:56:12
+ * DateTime on 2018-12-07 11:31:16
  */
-@Api(value = "User",tags = {"user-controller"},description = "用户")
+@Api(description = "用户表的controller")
 @RestController
 public class UserController {
 
@@ -30,7 +31,7 @@ public class UserController {
      * 新增或修改
      */
     @ApiOperation(value = "insertOrUpdate",notes = "新增或修改")
-    @RequestMapping(value="/user/insertOrUpdate",method = {RequestMethod.GET,RequestMethod.POST})
+    @PostMapping(value="/user/insertOrUpdate")
     public ReturnModel insertOrUpdate(User user){
         if(null == user){
             user = new User();
@@ -42,7 +43,7 @@ public class UserController {
      * 新增
      */
     @ApiOperation(value = "insert",notes = "新增")
-    @RequestMapping(value="/user/insert",method = {RequestMethod.GET,RequestMethod.POST})
+    @PostMapping(value="/user/insert")
     public ReturnModel insert(User user){
         return userService.insert(user);
     }
@@ -51,7 +52,7 @@ public class UserController {
      * 删除
      */
     @ApiOperation(value = "delete",notes = "删除")
-    @RequestMapping(value="/user/delete",method = {RequestMethod.GET,RequestMethod.POST})
+    @PostMapping(value="/user/delete")
     public ReturnModel delete(String id){
         return userService.delete(id);
     }
@@ -60,7 +61,7 @@ public class UserController {
      * 修改
      */
     @ApiOperation(value = "update",notes = "修改")
-    @RequestMapping(value="/user/update",method = {RequestMethod.GET,RequestMethod.POST})
+    @PostMapping(value="/user/update")
     public ReturnModel update(User user){
         return userService.update(user);
     }
@@ -69,7 +70,7 @@ public class UserController {
      * 根据Id查询
      */
     @ApiOperation(value = "getById",notes = "根据Id查询")
-    @RequestMapping(value="/user/getById",method = {RequestMethod.GET,RequestMethod.POST})
+    @GetMapping(value="/user/getById")
     public ReturnModel load(String id){
         return userService.load(id);
     }
@@ -78,7 +79,7 @@ public class UserController {
      * 全部查询
      */
     @ApiOperation(value = "getAll",notes = "全部查询")
-    @RequestMapping(value="/user/getAll",method = {RequestMethod.GET,RequestMethod.POST})
+    @GetMapping(value="/user/getAll")
     public List<User> getAll(){
         return userService.getAll();
     }
@@ -87,10 +88,27 @@ public class UserController {
      * 分页查询
      */
     @ApiOperation(value = "getByPageList",notes = "分页查询")
-    @RequestMapping(value="/user/getByPageList",method = {RequestMethod.GET,RequestMethod.POST})
+    @GetMapping(value="/user/getByPageList")
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int offset,
                                         @RequestParam(required = false, defaultValue = "10") int pagesize) {
         return userService.pageList(offset, pagesize);
+    }
+
+    /** 根据账号查询用户的信息
+     * @return
+     */
+    @GetMapping("/useruser/getUserByAccount")
+    @ApiOperation(value = "/useruser/getUserByAccount",notes = "根据账号查询用户的信息")
+    public ReturnModel getUserByAccount(String account){
+        ReturnModel returnModel = new ReturnModel();
+        if(StringUtil.isEmpty(account)){
+            returnModel.setMsg("账号不能为空!");
+            return returnModel;
+        }
+        User user = userService.getUserByAccount(account);
+        returnModel.setSuccess(true);
+        returnModel.addDefaultModel("data",user);
+        return returnModel;
     }
 
 }

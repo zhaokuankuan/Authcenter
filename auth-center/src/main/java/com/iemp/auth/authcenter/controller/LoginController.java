@@ -4,6 +4,7 @@ import com.iemp.auth.authcenter.common.JwtUtil;
 import com.iemp.auth.authcenter.common.ReturnModel;
 import com.iemp.auth.authcenter.domain.User;
 import com.iemp.auth.authcenter.domain.config.JwtToken;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -23,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @RestController
 @Slf4j
+@Api(description = "登录/登出接口")
 public class LoginController{
 
 
@@ -43,7 +45,7 @@ public class LoginController{
      * @param user
      * @return
      */
-    @RequestMapping(value="/login")
+    @PostMapping(value="/login")
     @ResponseBody
     public ReturnModel userLogin(User user){
         ReturnModel returnModel = new ReturnModel();
@@ -77,7 +79,7 @@ public class LoginController{
      * 退出
      * @return
      */
-    @RequestMapping(value="/logout",method =RequestMethod.GET)
+    @PostMapping(value="/logout")
     public void logout(HttpServletRequest request, HttpServletResponse response) throws Exception{
         //subject的实现类DelegatingSubject的logout方法，将本subject对象的session清空了
         //即使session托管给了redis ，redis有很多个浏览器的session
@@ -95,7 +97,7 @@ public class LoginController{
     }
 
 
-    @RequestMapping(path = "/401")
+    @RequestMapping(path = "/401",method = {RequestMethod.GET,RequestMethod.POST})
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public ReturnModel unauthorized(String message) {
         return new ReturnModel(401, message);

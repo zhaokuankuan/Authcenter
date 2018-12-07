@@ -1,10 +1,9 @@
 package com.iemp.auth.authcenter.domain;
-
 import java.io.Serializable;
 /**
- * 资源表
+ * 资源
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:22:33
+ * DateTime on 2018-12-07 13:31:15
  */
 public class Resource implements Serializable {
 
@@ -18,12 +17,7 @@ public class Resource implements Serializable {
     /**
      * 资源名称
      */
-    private String resourceName;
-
-    /**
-     * 资源类型
-     */
-    private int type;
+    private String name;
 
     /**
      * 资源编码
@@ -31,19 +25,39 @@ public class Resource implements Serializable {
     private String code;
 
     /**
-     * 上级资源id
+     * 资源路径
      */
-    private String pid;
+    private String url;
 
     /**
-     * 描述
+     * 增加 ：0 为拥有权限 1(默认) 没有权限
      */
-    private String des;
+    private int add;
 
     /**
-     * 序号
+     * 删除
+     */
+    private int delete;
+
+    /**
+     * 修改
+     */
+    private int edit;
+
+    /**
+     * 查询
+     */
+    private int find;
+
+    /**
+     * 排序
      */
     private int sort;
+
+    /**
+     * 资源描述
+     */
+    private String des;
 
 
     public String getId() {
@@ -54,20 +68,12 @@ public class Resource implements Serializable {
         this.id = id;
     }
 
-    public String getResourceName() {
-        return resourceName;
+    public String getName() {
+        return name;
     }
 
-    public void setResourceName(String resourceName) {
-        this.resourceName = resourceName;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getCode() {
@@ -78,20 +84,44 @@ public class Resource implements Serializable {
         this.code = code;
     }
 
-    public String getPid() {
-        return pid;
+    public String getUrl() {
+        return url;
     }
 
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public String getDes() {
-        return des;
+    public int getAdd() {
+        return add;
     }
 
-    public void setDes(String des) {
-        this.des = des;
+    public void setAdd(int add) {
+        this.add = add;
+    }
+
+    public int getDelete() {
+        return delete;
+    }
+
+    public void setDelete(int delete) {
+        this.delete = delete;
+    }
+
+    public int getEdit() {
+        return edit;
+    }
+
+    public void setEdit(int edit) {
+        this.edit = edit;
+    }
+
+    public int getFind() {
+        return find;
+    }
+
+    public void setFind(int find) {
+        this.find = find;
     }
 
     public int getSort() {
@@ -100,6 +130,14 @@ public class Resource implements Serializable {
 
     public void setSort(int sort) {
         this.sort = sort;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
 }

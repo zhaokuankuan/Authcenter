@@ -1,6 +1,7 @@
 package com.iemp.auth.authcenter.service.impl;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
+import com.iemp.auth.authcenter.common.StringUtil;
 import com.iemp.auth.authcenter.dao.RoleDao;
 import com.iemp.auth.authcenter.domain.Role;
 import com.iemp.auth.authcenter.service.RoleService;
@@ -50,6 +51,7 @@ public class RoleServiceImpl implements RoleService {
             result.addDefaultModel("404","必要参数缺失");
             return result;
         }
+        role.setId(StringUtil.createUUID());
         roleDao.insert(role);
         result.setSuccess(true);
         return result;

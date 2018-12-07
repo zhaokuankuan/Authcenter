@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 /**
- * 资源表
+ * 资源
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:22:33
+ * DateTime on 2018-12-07 13:31:15
  */
 public interface ResourceDao {
 
@@ -42,12 +42,17 @@ public interface ResourceDao {
      * 分页查询Data
      */
     public List<Resource> pageList(@Param("offset") int offset,
-                                   @Param("pagesize") int pagesize);
+                                  @Param("pagesize") int pagesize);
 
     /**
      * 分页查询Count
      */
     public int pageListCount(@Param("offset") int offset,
                              @Param("pagesize") int pagesize);
+
+    /**
+     * 根据资源Id列表查询资源
+     */
+    public List<Resource> getResourceByIds(@Param("resoureceIds") List<String> resoureceIds);
 
 }

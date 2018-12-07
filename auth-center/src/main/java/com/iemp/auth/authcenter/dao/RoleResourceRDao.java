@@ -4,6 +4,7 @@ import com.iemp.auth.authcenter.domain.RoleResourceR;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * "角色资源关系表"
@@ -49,5 +50,10 @@ public interface RoleResourceRDao {
      */
     public int pageListCount(@Param("offset") int offset,
                              @Param("pagesize") int pagesize);
+
+    /**
+     * 根据roleIds查询资源
+     */
+    public Set<String> getResourceByRoleIds(@Param("roleIds")List<String> roleIds);
 
 }

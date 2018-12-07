@@ -2,11 +2,11 @@ package com.iemp.auth.authcenter.domain;
 
 import java.io.Serializable;
 /**
- * 角色业务表
+ * 角色菜单关系表
  * Created  by Mr.kk
- * DateTime on 2018-11-29 23:11:56
+ * DateTime on 2018-12-07 13:39:07
  */
-public class RoleBusiness implements Serializable {
+public class RoleMenuR implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,19 +16,14 @@ public class RoleBusiness implements Serializable {
     private String id;
 
     /**
-     * 角色id
+     * 角色Id
      */
     private String roleId;
 
     /**
-     * 类的主键
+     * 菜单Id
      */
-    private String classPk;
-
-    /**
-     * 类名
-     */
-    private String className;
+    private String menuId;
 
 
     public String getId() {
@@ -47,20 +42,12 @@ public class RoleBusiness implements Serializable {
         this.roleId = roleId;
     }
 
-    public String getClassPk() {
-        return classPk;
+    public String getMenuId() {
+        return menuId;
     }
 
-    public void setClassPk(String classPk) {
-        this.classPk = classPk;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
     }
 
 }

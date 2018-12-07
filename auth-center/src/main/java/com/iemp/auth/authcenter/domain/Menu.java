@@ -1,46 +1,57 @@
 package com.iemp.auth.authcenter.domain;
+
 import java.io.Serializable;
 /**
- * 操作码表
+ * 菜单
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:33:17
+ * DateTime on 2018-12-07 13:34:15
  */
-public class Authority implements Serializable {
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * ID
+     * id
      */
     private String id;
 
     /**
-     * 操作码名称
+     * 菜单名称
      */
     private String name;
 
     /**
-     * 编码
+     * 菜单编码
      */
     private String code;
 
     /**
-     * 接口名称
+     * 菜单路径
      */
     private String url;
 
     /**
-     * 方法
+     * 上级id
      */
-    private String method;
+    private String pId;
 
     /**
-     * controller
+     * 菜单图标路径
      */
-    private String controller;
+    private String picUrl;
 
     /**
-     * 描述
+     * 菜单类型 0为按钮  1为菜单
+     */
+    private String type;
+
+    /**
+     * 排序
+     */
+    private int sort;
+
+    /**
+     * 菜单描述
      */
     private String des;
 
@@ -77,20 +88,36 @@ public class Authority implements Serializable {
         this.url = url;
     }
 
-    public String getMethod() {
-        return method;
+    public String getPId() {
+        return pId;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setPId(String pId) {
+        this.pId = pId;
     }
 
-    public String getController() {
-        return controller;
+    public String getPicUrl() {
+        return picUrl;
     }
 
-    public void setController(String controller) {
-        this.controller = controller;
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getSort() {
+        return sort;
+    }
+
+    public void setSort(int sort) {
+        this.sort = sort;
     }
 
     public String getDes() {

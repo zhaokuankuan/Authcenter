@@ -5,11 +5,12 @@ import com.iemp.auth.authcenter.domain.UserRoleR;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
- * 角色用户关系表
+ * 用户角色关系表
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:40:49
+ * DateTime on 2018-12-07 13:36:53
  */
 public interface UserRoleRService {
 
@@ -47,5 +48,10 @@ public interface UserRoleRService {
      * 分页查询
      */
     public Map<String,Object> pageList(int offset, int pagesize);
+
+    /**
+     * 根据UserId查询用户所有的roles
+     */
+    public Set<String> getRoleIdsByUserId(String userId);
 
 }

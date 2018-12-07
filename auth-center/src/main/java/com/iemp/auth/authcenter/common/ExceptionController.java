@@ -1,6 +1,7 @@
 package com.iemp.auth.authcenter.common;
 
 import org.apache.shiro.ShiroException;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -32,6 +33,13 @@ public class ExceptionController {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ReturnModel globalException(HttpServletRequest request, Throwable ex) {
+        return new ReturnModel(getStatus(request).value(), ex.getMessage());
+    }
+
+    // 捕捉其他所有异常
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ReturnModel handle401(HttpServletRequest request, Throwable ex) {
         return new ReturnModel(getStatus(request).value(), ex.getMessage());
     }
 

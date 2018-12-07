@@ -1,6 +1,7 @@
 package com.iemp.auth.authcenter.service.impl;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
+import com.iemp.auth.authcenter.common.StringUtil;
 import com.iemp.auth.authcenter.dao.UserDao;
 import com.iemp.auth.authcenter.domain.User;
 import com.iemp.auth.authcenter.service.UserService;
@@ -11,8 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 用户表
+ * Created  by Mr.kk
+ * DateTime on 2018-12-07 11:31:16
+ */
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Resource
     private UserDao userDao;
@@ -45,6 +51,7 @@ public class UserServiceImpl implements UserService{
             result.addDefaultModel("404","必要参数缺失");
             return result;
         }
+        user.setId(StringUtil.createUUID());
         userDao.insert(user);
         result.setSuccess(true);
         return result;
@@ -101,18 +108,6 @@ public class UserServiceImpl implements UserService{
     }
 
     /**
-     * 根据loginName查询
-     */
-    @Override
-    public User loadByLoginName(String name) {
-        if(null == name || "".equals(name)){
-            return new User();
-        }
-        User user = userDao.loadByLoginName(name);
-        return user;
-    }
-
-    /**
      * 全部查询
      */
     public List<User> getAll(){
@@ -133,4 +128,14 @@ public class UserServiceImpl implements UserService{
         result.put("totalCount", totalCount);
         return result;
     }
+
+    /**
+     * 根据账号查询用户信息
+     * @param account 账号
+     */
+    @Override
+    public User getUserByAccount(String account) {
+        return userDao.getUserByAccount(account);
+    }
+
 }

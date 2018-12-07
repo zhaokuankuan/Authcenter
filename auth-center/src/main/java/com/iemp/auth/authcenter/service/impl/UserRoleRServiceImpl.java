@@ -1,20 +1,19 @@
 package com.iemp.auth.authcenter.service.impl;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
+import com.iemp.auth.authcenter.common.StringUtil;
 import com.iemp.auth.authcenter.dao.UserRoleRDao;
 import com.iemp.auth.authcenter.domain.UserRoleR;
 import com.iemp.auth.authcenter.service.UserRoleRService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
- * 角色用户关系表
+ * 用户角色关系表
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:40:49
+ * DateTime on 2018-12-07 13:36:53
  */
 @Service
 public class UserRoleRServiceImpl implements UserRoleRService {
@@ -50,6 +49,7 @@ public class UserRoleRServiceImpl implements UserRoleRService {
             result.addDefaultModel("404","必要参数缺失");
             return result;
         }
+        userRoleR.setId(StringUtil.createUUID());
         userRoleRDao.insert(userRoleR);
         result.setSuccess(true);
         return result;
@@ -125,6 +125,18 @@ public class UserRoleRServiceImpl implements UserRoleRService {
         result.put("pageList", pageList);
         result.put("totalCount", totalCount);
         return result;
+    }
+
+    /**
+     * 根据UserId查询用户所有的roles
+     */
+    @Override
+    public Set<String> getRoleIdsByUserId(String userId) {
+        Set<String> set = new HashSet<String>();
+        if(StringUtil.isNotEmpty(userId)){
+            set = userRoleRDao.getRoleIdsByUserId(userId);
+        }
+        return set;
     }
 
 }

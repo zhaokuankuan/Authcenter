@@ -72,4 +72,12 @@
         FROM role_resource_r
     </select>
 
+    <select id="getResourceByRoleIds" resultType="String">
+        SELECT resource_id
+        FROM role_resource_r
+        WHERE role_id in 
+        <foreach collection="roleIds" item="roleId" separator="," open="(" close=")">
+            #{roleId,jdbcType=VARCHAR}
+        </foreach>
+    </select>
 </mapper>

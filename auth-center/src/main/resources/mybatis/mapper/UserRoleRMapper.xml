@@ -7,28 +7,24 @@
         <result column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="role_id" property="roleId" />
-        <result column="yw_id" property="ywId" />
     </resultMap>
 
     <sql id="Base_Column_List">
         `id`,
         `user_id`,
-        `role_id`,
-        `yw_id`
+        `role_id`
     </sql>
 
     <insert id="insert" parameterType="java.util.Map" >
         INSERT INTO user_role_r (
         `id`,
         `user_id`,
-        `role_id`,
-        `yw_id`
+        `role_id`
         )
         VALUES(
         #{userRoleR.id},
         #{userRoleR.userId},
-        #{userRoleR.roleId},
-        #{userRoleR.ywId}
+        #{userRoleR.roleId}
         )
     </insert>
 
@@ -47,11 +43,6 @@
         <set>
             <if test="userRoleR.roleId != null and userRoleR.roleId != '' " >
                 role_id = #{userRoleR.roleId},
-            </if>
-        </set>
-        <set>
-            <if test="userRoleR.ywId != null and userRoleR.ywId != '' " >
-                yw_id = #{userRoleR.ywId},
             </if>
         </set>
         WHERE `id` = #{userRoleR.id}
@@ -79,6 +70,12 @@
     <select id="pageListCount" parameterType="java.util.Map" resultType="int">
         SELECT count(1)
         FROM user_role_r
+    </select>
+
+    <select id="getRoleIdsByUserId" resultType="String">
+        SELECT role_id
+        FROM user_role_r
+        where user_id = #{userId}
     </select>
 
 </mapper>

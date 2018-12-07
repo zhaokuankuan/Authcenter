@@ -1,21 +1,21 @@
 package com.iemp.auth.authcenter.dao;
 
-import com.iemp.auth.authcenter.domain.Authority;
+import com.iemp.auth.authcenter.domain.Menu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 /**
- * 操作码表
+ * 菜单
  * Created  by Mr.kk
- * DateTime on 2018-11-29 22:33:17
+ * DateTime on 2018-12-07 13:34:15
  */
-public interface AuthorityDao {
+public interface MenuDao {
 
     /**
      * 新增
      */
-    public int insert(@Param("authority") Authority authority);
+    public int insert(@Param("menu") Menu menu);
 
     /**
      * 删除
@@ -25,24 +25,24 @@ public interface AuthorityDao {
     /**
      * 更新
      */
-    public int update(@Param("authority") Authority authority);
+    public int update(@Param("menu") Menu menu);
 
     /**
      * Load查询
      */
-    public Authority load(@Param("id") String id);
+    public Menu load(@Param("id") String id);
 
     /**
      * Load查询
      */
-    public List<Authority> getAll();
+    public List<Menu> getAll();
 
 
     /**
      * 分页查询Data
      */
-    public List<Authority> pageList(@Param("offset") int offset,
-                                    @Param("pagesize") int pagesize);
+    public List<Menu> pageList(@Param("offset") int offset,
+                               @Param("pagesize") int pagesize);
 
     /**
      * 分页查询Count
@@ -50,5 +50,9 @@ public interface AuthorityDao {
     public int pageListCount(@Param("offset") int offset,
                              @Param("pagesize") int pagesize);
 
-}
+    /**
+     * 根据menuIds查询菜单
+     */
+    public List<Menu> getMenusByMenuIds(@Param("menuIds") List<String> menuIds);
 
+}

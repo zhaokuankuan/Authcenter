@@ -5,6 +5,7 @@ import com.iemp.auth.authcenter.domain.RoleResourceR;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * "角色资源关系表"
@@ -47,5 +48,11 @@ public interface RoleResourceRService {
      * 分页查询
      */
     public Map<String,Object> pageList(int offset, int pagesize);
+
+
+    /**
+     * 根据rolesId查询所有的资源id
+     */
+    public Set<String> getResourceByRoleIds(List<String> roleIds);
 
 }

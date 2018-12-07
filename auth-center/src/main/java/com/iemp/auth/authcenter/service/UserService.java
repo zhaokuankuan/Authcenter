@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author :Mr.kk
- * @date: 2018/11/29 18:58
+ * 用户表
+ * Created  by Mr.kk
+ * DateTime on 2018-12-07 11:31:16
  */
 public interface UserService {
+
     /**
      * 新增或修改
      */
@@ -37,11 +39,6 @@ public interface UserService {
     public ReturnModel load(String id);
 
     /**
-     * 根据loginName查询
-     */
-    public User loadByLoginName(String name);
-
-    /**
      * 全部查询
      */
     public List<User> getAll();
@@ -50,5 +47,10 @@ public interface UserService {
      * 分页查询
      */
     public Map<String,Object> pageList(int offset, int pagesize);
+
+    /**
+     * 根据账号查询用户信息
+     */
+    public User getUserByAccount(String account);
 
 }

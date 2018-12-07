@@ -1,27 +1,27 @@
 package com.iemp.auth.authcenter.service;
 
 import com.iemp.auth.authcenter.common.ReturnModel;
-import com.iemp.auth.authcenter.domain.RoleBusiness;
+import com.iemp.auth.authcenter.domain.Menu;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * 角色业务表
+ * 菜单
  * Created  by Mr.kk
- * DateTime on 2018-11-29 23:11:56
+ * DateTime on 2018-12-07 13:34:15
  */
-public interface RoleBusinessService {
+public interface MenuService {
 
     /**
      * 新增或修改
      */
-    public ReturnModel insertOrUpdate(RoleBusiness roleBusiness);
+    public ReturnModel insertOrUpdate(Menu menu);
 
     /**
      * 新增
      */
-    public ReturnModel insert(RoleBusiness roleBusiness);
+    public ReturnModel insert(Menu menu);
 
     /**
      * 删除
@@ -31,7 +31,7 @@ public interface RoleBusinessService {
     /**
      * 更新
      */
-    public ReturnModel update(RoleBusiness roleBusiness);
+    public ReturnModel update(Menu menu);
 
     /**
      * 根据Id查询
@@ -41,11 +41,16 @@ public interface RoleBusinessService {
     /**
      * 全部查询
      */
-    public List<RoleBusiness> getAll();
+    public List<Menu> getAll();
 
     /**
      * 分页查询
      */
     public Map<String,Object> pageList(int offset, int pagesize);
+
+    /**
+     * 根据menIdS查询所有的menu
+     */
+    public List<Menu> getMenusByMenuIds(List<String> menuIds);
 
 }
