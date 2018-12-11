@@ -38,7 +38,7 @@ public class ShiroConfig {
         filterMap.put("jwt", new JwtFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边
-        filterChainDefinitionMap.put("/**", "jwt");
+        //filterChainDefinitionMap.put("/**", "jwt");
         // 如果不设置默认会自动寻找Web工程根目录下的"/login.jsp"页面
         shiroFilterFactoryBean.setLoginUrl("/login");
         // 登录成功后要跳转的链接

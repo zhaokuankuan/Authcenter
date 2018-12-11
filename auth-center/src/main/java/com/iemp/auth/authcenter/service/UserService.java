@@ -53,4 +53,10 @@ public interface UserService {
      */
     public User getUserByAccount(String account);
 
+    /**
+     * 根据电话查询用户信息
+     */
+    public User getUserByPhone(String phone);
+
+
 }

@@ -138,4 +138,12 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserByAccount(account);
     }
 
+    /**
+     * 根据电话查询用户信息
+     */
+    @Override
+    public User getUserByPhone(String phone) {
+        return userDao.getUserByPhone(phone);
+    }
+
 }

@@ -1,6 +1,5 @@
 package com.iemp.auth.authcenter.config;
 
-import com.iemp.auth.authcenter.domain.config.JwtToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -49,10 +48,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter{
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String token = httpServletRequest.getHeader("Authorization");
-        JwtToken jwtToken = new JwtToken(token);
+        //JwtToken jwtToken = new JwtToken(token);
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
         try {
-            getSubject(request, response).login(jwtToken);
+            //getSubject(request, response).login(jwtToken);
         }catch (AuthenticationException e){
             response401(request,response,e.getMessage());
         }

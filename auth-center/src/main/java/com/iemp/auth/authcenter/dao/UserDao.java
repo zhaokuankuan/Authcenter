@@ -54,4 +54,11 @@ public interface UserDao {
      * 根据账号查询用户信息
      */
     public User getUserByAccount(@Param("account") String account);
+
+    /**
+     * 根据账号查询用户信息
+     */
+    public User getUserByPhone(@Param("phone") String phone);
+
+
 }

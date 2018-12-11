@@ -123,4 +123,11 @@
         WHERE `login_name` = #{account} or `phone` = #{account}
     </select>
 
+    <select id="getUserByPhone" resultMap="User">
+        SELECT <include refid="Base_Column_List" />
+        FROM user
+        WHERE `phone` = #{phone}
+    </select>
+
+
 </mapper>

@@ -1,8 +1,6 @@
 package com.iemp.auth.authcenter.config;
 
-import com.iemp.auth.authcenter.common.JwtUtil;
-import com.iemp.auth.authcenter.domain.User;
-import com.iemp.auth.authcenter.domain.config.JwtToken;
+import com.iemp.auth.authcenter.common.JwtToken;
 import com.iemp.auth.authcenter.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -37,8 +35,8 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String username = JwtUtil.getUsername(principals.toString());
-        User user = sysUserService.getUserByAccount(username);
+        //String userid = JwtUtil.getUsername(principals.toString());
+        //User user = sysUserService.getUserByAccount(username);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         //simpleAuthorizationInfo.addRole(user.getRole());
         //Set<String> permission = new HashSet<>(Arrays.asList(user.getPermission().split(",")));
@@ -56,19 +54,19 @@ public class MyRealm extends AuthorizingRealm {
             throw new AuthenticationException("token is null!");
         }
         // 解密获得username，用于和数据库进行对比
-        String username = JwtUtil.getUsername(token);
-        if (username == null) {
+        String userId = com.iemp.auth.authcenter.common.JwtToken.verifyToken(token);
+        if (userId == null) {
             throw new AuthenticationException("token is unAuthentication!");
         }
 
-        User user = sysUserService.getUserByAccount(username);
-        if (user == null) {
-            throw new AuthenticationException("user is not exist!");
-        }
+        //User user = sysUserService.getUserByAccount(username);
+        //if (user == null) {
+        //    throw new AuthenticationException("user is not exist!");
+        //}
 
-        if (!JwtUtil.verify(token, username, user.getPassword())) {
-            throw new AuthenticationException("token is error!");
-        }
+        //if (!JwtUtil.verify(token, username, user.getPassword())) {
+        //    throw new AuthenticationException("token is error!");
+        //}
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
 }

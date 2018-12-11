@@ -21,4 +21,15 @@ spring:
     url: jdbc:mysql://localhost:3306/iemp?useUnicode=true&amp;characterEncoding=utf-8
     username: root
     password: root
-
+#############################################redis的配置信息##############################################
+  redis:
+#redis的地址
+    host: 118.31.73.105
+#redis的端口
+    port: 6379
+#redis的数据库索引
+    database: 1
+#服务器的链接密码(默认为空)
+    password: Changeme_123
+#链接超时时间
+    timeout: 10000
